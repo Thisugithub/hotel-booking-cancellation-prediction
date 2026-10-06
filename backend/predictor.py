@@ -11,7 +11,7 @@ from feature_engineering import engineer_features
 # Load Trained Random Forest Pipeline
 # ==================================================
 
-MODEL_PATH = "../models/random_forest_pipeline.pkl"
+MODEL_PATH = "./models/random_forest_pipeline.pkl"
 
 model = joblib.load(MODEL_PATH)
 
