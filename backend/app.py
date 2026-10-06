@@ -13,9 +13,99 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title(
-    "🏨 Hotel Booking Cancellation Prediction System"
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp{
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+/* Header card */
+.hero {
+    background: linear-gradient(90deg,#2563eb,#7c3aed);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Section cards */
+.card {
+    background: #172033;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #334155;
+}
+
+/* Labels */
+label {
+    font-weight: bold !important;
+}
+
+/* Predict Button */
+.stButton{
+    display:flex;
+    justify-content:center;
+}
+
+.stButton > button {
+    width: 350px;
+    height: 60px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(90deg,#2563eb,#7c3aed);
+    color:white;
+    border: none;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(90deg,#1d4ed8,#6d28d9);
+    transform: scale(1.02);
+}
+
+/* Metric cards */
+[data-testid="metric-container"]{
+    background: #172033;
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #334155;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.image(
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    use_container_width=True
 )
+
+st.markdown("""
+<div style="
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+padding:30px;
+border-radius:20px;
+text-align:center;
+color:white;">
+<h1>🏨 Hotel Booking Cancellation Predictor</h1>
+<p>AI Powered Booking Risk Analysis System</p>
+</div>
+""", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("📋 Features", "26")
+
+with col2:
+    st.metric("🤖 Model", "Random Forest")
+
+with col3:
+    st.metric("🎯 Accuracy", "88%")
 
 st.markdown("""
 Enter booking details below.
@@ -33,143 +123,147 @@ will automatically use default values.
 
 st.header("Booking Information")
 
-hotel = st.selectbox(
-    "Hotel *",
-    [
-        "Resort Hotel",
-        "City Hotel"
-    ]
-)
+left, right = st.columns(2)
 
-lead_time = st.number_input(
-    "Lead Time *",
-    min_value=0,
-    value=0
-)
+with left:
+    hotel = st.selectbox(
+        "Hotel *",
+        [
+            "Resort Hotel",
+            "City Hotel"
+        ]
+    )
 
-arrival_date_year = st.number_input(
-    "Arrival Year *",
-    min_value=2015,
-    value=2017
-)
+    lead_time = st.number_input(
+        "Lead Time *",
+        min_value=0,
+        value=0
+    )
 
-arrival_date_month = st.selectbox(
-    "Arrival Month *",
-    [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ]
-)
+    arrival_date_year = st.number_input(
+        "Arrival Year *",
+        min_value=2015,
+        value=2017
+    )
 
-arrival_date_week_number = st.number_input(
-    "Arrival Week Number *",
-    min_value=1,
-    max_value=53,
-    value=1
-)
+    arrival_date_month = st.selectbox(
+        "Arrival Month *",
+        [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    )
 
-arrival_date_day_of_month = st.number_input(
-    "Arrival Day *",
-    min_value=1,
-    max_value=31,
-    value=1
-)
+    arrival_date_week_number = st.number_input(
+        "Arrival Week Number *",
+        min_value=1,
+        max_value=53,
+        value=1
+    )
 
-stays_in_weekend_nights = st.number_input(
-    "Weekend Nights *",
-    min_value=0,
-    value=0
-)
+    arrival_date_day_of_month = st.number_input(
+        "Arrival Day *",
+        min_value=1,
+        max_value=31,
+        value=1
+    )
 
-stays_in_week_nights = st.number_input(
-    "Week Nights *",
-    min_value=0,
-    value=1
-)
+    stays_in_weekend_nights = st.number_input(
+        "Weekend Nights *",
+        min_value=0,
+        value=0
+    )
 
-adults = st.number_input(
-    "Adults *",
-    min_value=1,
-    value=2
-)
+    stays_in_week_nights = st.number_input(
+        "Week Nights *",
+        min_value=0,
+        value=1
+    )
 
-meal = st.selectbox(
-    "Meal Type *",
-    [
-        "BB",
-        "HB",
-        "FB",
-        "SC"
-    ]
-)
+    adults = st.number_input(
+        "Adults *",
+        min_value=1,
+        value=2
+    )
 
-market_segment = st.selectbox(
-    "Market Segment *",
-    [
-        "Direct",
-        "Corporate",
-        "Online TA",
-        "Offline TA/TO",
-        "Groups",
-        "Complementary",
-        "Aviation"
-    ]
-)
+with right:
+    meal = st.selectbox(
+        "Meal Type *",
+        [
+            "BB",
+            "HB",
+            "FB",
+            "SC"
+        ]
+    )
 
-distribution_channel = st.selectbox(
-    "Distribution Channel *",
-    [
-        "Direct",
-        "Corporate",
-        "TA/TO",
-        "GDS"
-    ]
-)
+    market_segment = st.selectbox(
+        "Market Segment *",
+        [
+            "Direct",
+            "Corporate",
+            "Online TA",
+            "Offline TA/TO",
+            "Groups",
+            "Complementary",
+            "Aviation"
+        ]
+    )
 
-reserved_room_type = st.selectbox(
-    "Reserved Room Type *",
-    ["A","B","C","D","E","F","G","H","L"]
-)
+    distribution_channel = st.selectbox(
+        "Distribution Channel *",
+        [
+            "Direct",
+            "Corporate",
+            "TA/TO",
+            "GDS"
+        ]
+    )
 
-assigned_room_type = st.selectbox(
-    "Assigned Room Type *",
-    ["A","B","C","D","E","F","G","H","L"]
-)
+    reserved_room_type = st.selectbox(
+        "Reserved Room Type *",
+        ["A","B","C","D","E","F","G","H","L"]
+    )
 
-deposit_type = st.selectbox(
-    "Deposit Type *",
-    [
-        "No Deposit",
-        "Non Refund",
-        "Refundable"
-    ]
-)
+    assigned_room_type = st.selectbox(
+        "Assigned Room Type *",
+        ["A","B","C","D","E","F","G","H","L"]
+    )
 
-customer_type = st.selectbox(
-    "Customer Type *",
-    [
-        "Transient",
-        "Contract",
-        "Transient-Party",
-        "Group"
-    ]
-)
+    deposit_type = st.selectbox(
+        "Deposit Type *",
+        [
+            "No Deposit",
+            "Non Refund",
+            "Refundable"
+        ]
+    )
 
-adr = st.number_input(
-    "Average Daily Rate (ADR) *",
-    min_value=0.0,
-    value=100.0
-)
+    customer_type = st.selectbox(
+        "Customer Type *",
+        [
+            "Transient",
+            "Contract",
+            "Transient-Party",
+            "Group"
+        ]
+    )
+
+    adr = st.number_input(
+        "Average Daily Rate (ADR) *",
+        min_value=0.0,
+        value=100.0
+    )
 
 # ==========================================
 # Optional Fields
@@ -243,7 +337,15 @@ with st.expander("Optional Fields"):
 # Predict Button
 # ==========================================
 
-if st.button("Predict Cancellation Risk"):
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    predict = st.button(
+        "🔮 Predict Cancellation Risk",
+        use_container_width=True
+    )
+
+if predict:
 
     data = {
 
@@ -334,16 +436,26 @@ if st.button("Predict Cancellation Risk"):
         )
 
         if result["prediction"] == "Likely To Cancel":
-
-            st.error(
-                result["prediction"]
-            )
+            st.markdown("""
+            <div style="
+                background:#7f1d1d;
+                padding:20px;
+                border-radius:15px;
+                text-align:center;">
+                <h2>⚠️ HIGH CANCELLATION RISK</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
         else:
-
-            st.success(
-                result["prediction"]
-            )
+            st.markdown("""
+            <div style="
+                background:#14532d;
+                padding:20px;
+                border-radius:15px;
+                text-align:center;">
+                <h2>✅ BOOKING IS STABLE</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
         st.metric(
             "Cancellation Probability",
